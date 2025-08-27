@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Interpreter with Timer</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.3/brython.min.js"></script>
+</head>
+<body onload="brython(); startTimer();">
+    <h2>Python Interpreter</h2>
+    <p><b>Time Left:</b> <span id="timer">60</span> seconds</p>
+    <textarea id="code" rows="5" cols="40">print("Hello, World!")</textarea>
+    <button id="runPython">Run</button>
+
+    <p><b>Expected Output:</b> <span id="expected">Hello, World!</span></p>
+    <p><b>Your Output:</b> <pre id="output"></pre></p>
+    <p><b>Result:</b> <span id="result"></span></p>
+
+    <script>
+        let timeLeft = 60;
+        let timerInterval;
+        let attemptUsed = false; // Now correctly handled in JavaScript
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Failed! Time ran out.");
+                    disableRunButton();
+                } else {
+                    document.getElementById("timer").textContent = timeLeft;
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function disableRunButton() {
+            document.getElementById("runPython").disabled = true;
+        }
+
+        document.getElementById("runPython").addEventListener("click", function () {
+            if (attemptUsed) return;
+            attemptUsed = true;
+            stopTimer();
+        });
+    </script>
+
+    <script type="text/python">
+        from browser import document, window
+
+        attempt_used = False  # Now correctly defined in Brython
+
+        def runPython(event):
+            global attempt_used
+            if attempt_used:
+                return  # Prevent multiple attempts
+
+            attempt_used = True  # Mark that the user has attempted
+            code = document["code"].value.strip()
+            expected_output = document["expected"].text.strip()
+            user_output = ""
+
+            try:
+                output_list = []
+                def custom_print(*args):
+                    output_list.append(" ".join(str(arg) for arg in args))
+                
+                global print
+                original_print = print
+                print = custom_print
+
+                exec(code)  # Run user code
+                
+                print = original_print  # Restore print
+
+                user_output = "\n".join(output_list).strip()
+            except Exception as e:
+                user_output = str(e)
+
+            document["output"].text = user_output
+
+            # Check result
+            if user_output == expected_output:
+                document["result"].text = "✅ Correct"
+                document["result"].style.color = "green"
+            else:
+                document["result"].text = "❌ Incorrect"
+                document["result"].style.color = "red"
+                window.alert("Failed! Your output is incorrect.")  # Show alert
+                window.disableRunButton()  # Disable button
+                
+            window.stopTimer()  # Stop timer
+
+        document["runPython"].bind("click", runPython)
+    </script>
+</body>
+</html>

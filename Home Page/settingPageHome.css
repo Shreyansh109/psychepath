@@ -1,0 +1,153 @@
+#settingBG{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba(95, 158, 160, 0.656);
+    z-index: 1;
+}
+
+.toggle-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-height: 250px; /* Increased height */
+    background-image: url('file:///C:/Users/shrey/Downloads/WhatsApp%20Image%202025-02-21%20at%209.58.08%20PM.jpeg');
+    background-size: cover;
+    width:200px;
+}
+
+
+/* Toggle Switch Styling */
+.toggle {
+    position: relative;
+    width: 140px;
+    height: 70px;
+}
+
+.toggle input {
+    display: none;
+}
+
+/* Switch Background */
+.slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ef8886;
+    border-radius: 35px;
+    transition: 0.4s;
+}
+
+/* Switch Knob */
+.slider::before {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: rgb(255, 219, 15);
+    border-radius: 50%;
+    z-index: 1;
+    top: 7.5px;
+    left: 7.5px;
+    transition: 0.4s;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Switch ON */
+.toggle input:checked + .slider {
+    background: #8bc34a;
+}
+
+.toggle input:checked + .slider::before {
+    transform: translateX(70px);
+}
+
+/* Label Styling */
+.label-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+/* ===== Music Wave Fix ===== */
+.wave-container {
+    position: absolute;
+    display: flex;
+    bottom: 50%;
+    left: 30px;
+    transform: translateY(50%);
+    gap: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.bar-music {
+    width: 5px;
+    height: 10px;
+    background: #2e7d32;
+    border-radius: 3px;
+    animation: waveAnimation 1s infinite ease-in-out;
+}
+
+.bar-music:nth-child(1) { animation-delay: 0s; }
+.bar-music:nth-child(2) { animation-delay: 0.2s; }
+.bar-music:nth-child(3) { animation-delay: 0.4s; }
+
+/* Smooth Wave Animation */
+@keyframes waveAnimation {
+    0%, 100% { height: 12px; transform: translateY(0); }
+    50% { height: 18px; transform: translateY(-3px); }
+}
+
+/* ===== Sine Wave Fix ===== */
+.sound-wave {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Sine Wave */
+.wave {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    background: url('data:image/svg+xml,\
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 30">\
+        <path d="M0,15 Q18,0 36,15 T72,15 T108,15 T150,15" stroke="%23ff5722" fill="transparent" stroke-width="3"/>\
+        </svg>') repeat-x;
+    animation: sineWave 1s linear infinite;
+}
+
+/* ✅ Corrected looping sine wave */
+@keyframes sineWave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50px); }
+}
+
+/* "Close" Text */
+.close-text {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 20px;
+    font-family: 'Consolas';
+    font-weight: bold;
+    color: rgb(255, 253, 254);
+    cursor: pointer;
+}

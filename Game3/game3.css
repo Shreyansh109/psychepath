@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Resources/game3BG.jpeg');
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 97vh;
+    width: 98vw;
+}
+#game-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 00px;
+    border-radius: 10px;
+}
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+.color-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+.color-btn {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.color-btn:hover {
+    transform: scale(1.1);
+}
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+#next-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffffff;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: none;
+}
+#next-btn:hover {
+    background-color: #ddd;
+}

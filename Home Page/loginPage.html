@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="projectAlpha_home.css">
+    <style>
+        body {
+            margin: 0px;
+            height: 100vh;
+        }
+        #portraitSpan {
+            background-image: url("file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Resources/Anime-Scenery-Wallpaper-for-Walls.jpg");
+            background-size: cover;
+            position: absolute;
+            left: 50%;
+            width: 50%;
+            height: 100vh;
+        }
+    </style>
+    <audio src="C:\Users\shrey\Desktop\Shreyansh\Technovation\Resources\Page Flip Sound Effect.mp3" id="loginSFX"></audio>
+</head>
+<body>
+    <!-- Login Page -->
+    <span id="loginBG">
+        <div id="loginPage">
+            <div class="top-shape">
+                <h2>Log-in</h2>
+            </div>
+        
+            <form>
+                <div class="input-group">
+                    <label style="text-align: left; font-family: 'Consolas';">Email</label>
+                    <input type="email" placeholder="giga@example.com" required id="userID"/>
+                </div>
+        
+                <div class="input-group">
+                    <label style="text-align: left; font-family: 'Consolas';">Password</label>
+                    <input type="password" placeholder="●●●●●●" required id="password"/>
+                </div>
+        
+                <button type="submit" class="login-btn" id="login-btn-id">
+                    Log-in <!--Login button-->
+                    <span class="arrow">&rarr;</span>
+                </button>
+            </form>
+        
+            <div class="bottom-links">
+                <a href="file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Home%20Page/signupPage.html">Sign up</a>
+                <a href="file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Home%20Page/projectAlpha_home.html">
+                    <b style="cursor: pointer; font-family: 'Consolas';" id="loginClose">Close</b>
+                </a>
+            </div>
+        </div>
+    </span>
+    <div style="width: 50%; height: 100vh; display: inline-block;" id="portraitSpan"></div>
+
+    <script>
+        // Play sound after user interacts with the page
+        window.onload = function() {
+            document.getElementById('loginSFX').play().catch(error => {
+                console.log("Autoplay blocked:", error);
+            });
+        };
+
+        // Prevent form submission and log input values
+        document.querySelector("form").onsubmit = function(event) {
+            event.preventDefault();
+            var ID = document.getElementById('userID').value;
+            var Password = document.getElementById('password').value;
+            console.log(ID, Password);
+        };
+
+        // Close button functionality
+        document.getElementById('loginClose').onclick = function() {
+            window.close();
+        };
+    </script>
+</body>
+</html>

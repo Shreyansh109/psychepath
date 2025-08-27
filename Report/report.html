@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <style>
+        body{
+            background-color: burlywood;
+            width: 100vw;
+            height: 100vh;
+            margin: 0px;
+        }
+        div{
+            width: 100vw;
+            height: auto;
+            color:blueviolet;
+            font-size: 50px;
+            text-align: center;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        td{
+            width: 50vw;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <strong>
+            Report
+        </strong>
+    </div>   
+    
+    <table style="margin-top: 50px;">
+        <tr>
+            <td style="text-align:center; color: white;">
+                <strong>
+                    Problems
+                </strong>
+            </td>
+            <td style="text-align:center; color: white;">
+                <strong>
+                    Solutions
+                </strong>
+            </td>
+        </tr>
+        <tr>
+            <td id="problems">
+            </td>
+            <td id="solutions">
+            </td>
+        </tr>
+    </table>
+    <div style="background: none;">
+        <button onclick="window.location.href='file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Home%20Page/projectAlpha_home.html'">Done</button>
+    </div>
+</body>
+<script>
+    function Game1ProblemReport(){
+        let dataArray = sessionStorage.getItem('Game1user');
+        let predictions = [];
+        
+        if(dataArray.includes(0)){
+            predictions.push("You need to improve your decision-making skills because you doesn't know your skills properly");
+        }
+        if(dataArray.includes('1. Leave him') && dataArray.includes('2. Leave Others Alone') && dataArray.includes('1. Ask for help')){
+            predictions.push('You are selfish, and you do not care about others');
+        }
+        if(dataArray.includes('1. Ask for help') && dataArray.includes('2. Ask question')){
+            predictions.push('You are dependent on others');
+        }
+        
+        if(dataArray.includes('1. Leave him') && dataArray.includes('2. Leave Others Alone') && !dataArray.includes('1. Ask for help')){
+            predictions.push('You are independent and you do not like to ask for help');
+        }
+
+        if(dataArray.includes('4. Destroy the AI to Free Everyone')){
+            predictions.push('You are sensetive towards others and you want to help them, but you have not patience do it in proper way');
+        }
+        return predictions;
+    }
+
+    function Game2ProblemReport(){
+        let data = sessionStorage.getItem('score');
+        let predictions;
+        if(data/500*100 < 45){
+            predictions = 'Your reflexes are very slow, you need to improve more';
+        }
+        else if(data/500*100 < 80){
+            predictions = 'You are not so fast you need to improve little bit';
+        }
+        else if(data/500*100 < 90){
+            predictions = 'You are fast but you need to improve more';
+        }
+        return predictions;        
+    }
+
+    let game1ProblemReport = Game1ProblemReport();
+
+    function Game1SolutionReport(x){
+        let solutions=[];
+        if(x.includes("You need to improve your decision-making skills because you doesn't know your skills properly")){
+            solutions.push("To improve decision-making, start by understanding your strengths and weaknesses through self-assessment and feedback. Reflect on past choices and keep a journal to track outcomes. Develop critical thinking by questioning assumptions and analyzing different options. Enhance your skills through learning and practice. Use a structured approach—identify the problem, gather information, consider choices, decide wisely, and review the outcome. Learn from mistakes and adjust strategies for better results. With consistent effort, you can make more confident and informed decisions.");
+        }
+        if(x.includes('You are selfish, and you do not care about others')){
+            solutions.push("Think about how your decisions affect others and try to be more considerate. Practice active listening, show kindness through small gestures, and be mindful of others' feelings. Developing emotional intelligence and seeking feedback can also help you improve. By making an effort to be more thoughtful, you can build stronger and more positive relationships.");
+        }
+        if(x.includes('You are dependent on others')){
+            solutions.push("To reduce dependency on others, focus on building self-reliance and confidence. Set goals and work towards achieving them independently. Develop problem-solving skills and seek solutions on your own before asking for help. Practice self-care and self-compassion to boost your self-esteem. Build a support network of friends and mentors who can offer guidance without enabling dependency. By taking ownership of your decisions and actions, you can become more self-sufficient and resilient.");
+        }
+        if(x.includes('You are independent and you do not like to ask for help')){
+            solutions.push("While independence is valuable, it's important to recognize when you can benefit from support. Practice asking for help when needed and be open to receiving assistance from others. Cultivate a growth mindset that values learning and collaboration. Seek feedback and mentorship to enhance your skills and perspectives. By balancing independence with collaboration, you can achieve greater success and well-being.");
+        }
+        if(x.includes('You are sensetive towards others and you want to help them, but you have not patience do it in proper way')){
+            solutions.push("To channel your sensitivity and compassion effectively, work on developing patience and resilience. Practice active listening and empathy to understand others' perspectives and needs. Set realistic expectations and boundaries to avoid burnout. Cultivate self-care practices to recharge and maintain your well-being. Seek support from friends, family, or professionals to manage stress and emotions. By balancing your caring nature with self-care and boundaries, you can make a positive impact while preserving your own well-being.");
+        }
+        return solutions;
+    }
+    let game1SolutionReport = Game1SolutionReport(game1ProblemReport);
+
+    let game2ProblemReport = Game2ProblemReport();
+    if (game2ProblemReport.length > 0){
+        var game2SolutionReport = "Improving reflexes requires regular physical training, mental alertness, and coordination exercises. Sports like table tennis, badminton, and boxing help enhance reaction time. Hand-eye coordination drills, such as juggling or catching a ball, improve responsiveness. Agility exercises like sprint starts, ladder drills, and quick direction changes boost speed and reflexes. Practicing reaction-based drills, such as partner-based reflex training, enhances quick decision-making. Additionally, maintaining a healthy lifestyle with proper sleep, nutrition, and hydration supports better neural responses. With consistent practice, reflexes can become sharper and more efficient.";
+    }
+
+    //let resultsArray=[Game1Report(),Game2Report(), sessionStorage.getItem('userColors')];
+    //console.log(resultsArray);
+
+    for(let i=0; i<game1ProblemReport.length; i++){
+        let prob = document.createElement('p');
+        prob.innerHTML = `${game1ProblemReport[i]}<br>`;
+        document.getElementById('problems').appendChild(prob);
+    }
+
+    for(let i=0; i<game1SolutionReport.length; i++){
+        let sol = document.createElement('p');
+        sol.innerHTML = `${game1SolutionReport[i]}<br>`;
+        document.getElementById('solutions').appendChild(sol);
+    }
+
+    if (game2ProblemReport.length > 0){
+        let sol = document.createElement('p');
+        sol.innerHTML = `${game2SolutionReport}<br>`;
+        document.getElementById('solutions').appendChild(sol);
+    }
+
+    let prob = document.createElement('p');
+    prob.innerHTML = `${game2ProblemReport}<br>`;
+    document.getElementById('problems').appendChild(prob);
+
+    let prob3 = document.createElement('p');
+    prob3.innerHTML = `${sessionStorage.getItem('userColors')}<br>`;
+    document.getElementById('problems').appendChild(prob3);
+
+</script>
+</html>

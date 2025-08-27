@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>story game</title>
+    <link rel="stylesheet" href="game1.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.11.3/brython.min.js"></script>
+</head>
+<body>
+    <video id="scene" autoplay playsinline>
+        <source src="file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Resources/Act1.mp4" type="video/mp4">
+    </video>
+    <div style="display: none; position: absolute; top: 0px; left: 0px; height: 50%; width: auto; background-image: url('file:///C:/Users/shrey/Pictures/Screenshots/Screenshot%202025-03-04%20231120.png'); background-size: cover;" id="interpreter">
+        <h2>Python Interpreter</h2>
+        <p><b>Time Left:</b> <span id="timer">15</span> seconds</p>
+        <textarea id="code" rows="5" cols="40"></textarea>
+        <button id="runPython">Run</button>
+
+        <p><b>Expected Output:</b> <span id="expected">bReak THe MaTriX</span></p>
+        <p><b>Your Output:</b> <pre id="output"></pre></p>
+        <p><b>Result:</b> <span id="result"></span></p>
+    </div>
+</body>
+<script src="game1.js"></script>
+    
+<script type="text/python">
+    from browser import document, window
+
+    attempt_used = False  # Now correctly defined in Brython
+
+    def runPython(event):
+        global attempt_used
+        if attempt_used:
+            return  # Prevent multiple attempts
+
+        attempt_used = True  # Mark that the user has attempted
+        code = document["code"].value.strip()
+        expected_output = document["expected"].text.strip()
+        user_output = ""
+
+        try:
+            output_list = []
+            def custom_print(*args):
+                output_list.append(" ".join(str(arg) for arg in args))
+            
+            global print
+            original_print = print
+            print = custom_print
+
+            exec(code)  # Run user code
+            
+            print = original_print  # Restore print
+
+            user_output = "\n".join(output_list).strip()
+        except Exception as e:
+            user_output = str(e)
+
+        document["output"].text = user_output
+
+        # Check result
+        if user_output == expected_output:
+            document["result"].text = "✅ Correct"
+            document["result"].style.color = "green"
+        else:
+            document["result"].text = "❌ Incorrect"
+            document["result"].style.color = "red"
+            window.alert("Failed! Your output is incorrect.")  # Show alert
+            window.disableRunButton()  # Disable button
+            window.location.href = "file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Game2/game2_introPage.html";
+            
+        window.stopTimer()  # Stop timer
+
+    document["runPython"].bind("click", runPython)
+</script>
+</html>

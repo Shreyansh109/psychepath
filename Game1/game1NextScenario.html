@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>story game</title>
+    <link rel="stylesheet" href="game1.css">
+</head>
+<body>
+    <video id="scene" autoplay playsinline>
+        <source src="file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Act4.mp4" type="video/mp4">
+    </video>
+    <div id="optionsContainer" class="fade-in">
+        <strong id="option1">
+            1. Be Diplomatic
+        </strong>
+        <strong onclick="option2()" id="option2">
+            2. Leave Others Alone
+        </strong>
+        <strong id="option3">
+            3. Overwrite the AI to Help Others
+        </strong>
+        <strong id="option4">
+            4. Destroy the AI to Free Everyone
+        </strong>
+    </div>
+</body>
+<script>
+    document.getElementById("scene").addEventListener("ended", function () {
+        document.getElementById("optionsContainer").classList.add("fade-in");
+    })
+    function option2(){
+        document.getElementById("scene").src = "file:///C:/Users/shrey/Desktop/Shreyansh/Technovation/Act4LeaveAlone.mp4";
+    }
+</script>
+</html>
